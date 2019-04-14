@@ -2,17 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e343f990-a42c-4639-bc57-c65baabe0aa1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/data/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/flatten_data/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/raw/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/model_preparation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/xgboost.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/data_wrangling.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/feature_engineering.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/flatten_json.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Google Competition Framework/data/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Google Competition Framework/data/flatten_data/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Google Competition Framework/data/raw/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Google Competition Framework/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Google Competition Framework/model/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Google Competition Framework/model/model_preparation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Google Competition Framework/model/xgboost.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Google Competition Framework/utils/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Google Competition Framework/utils/data_wrangling.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Google Competition Framework/utils/feature_engineering.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Google Competition Framework/utils/flatten_json.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Google Competition/.idea/Google Competition.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Google Competition/.idea/misc.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Google Competition/.idea/modules.xml" afterDir="false" />
@@ -22,6 +22,7 @@
       <change afterPath="$PROJECT_DIR$/../Google Competition/src/main.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Google Competition/src/modules/__init__.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../Google Competition/src/utils/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,11 +31,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="212">
+            <state relative-caret-position="436">
               <caret line="38" column="80" selection-start-line="38" selection-start-column="80" selection-end-line="38" selection-end-column="80" />
               <folding>
                 <element signature="e#0#57#0" expanded="true" />
@@ -46,7 +47,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model/xgboost.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="575">
+            <state relative-caret-position="552">
               <caret line="25" selection-start-line="25" selection-end-line="25" />
               <folding>
                 <element signature="e#0#76#0" expanded="true" />
@@ -64,7 +65,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/flatten_json.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="207">
@@ -88,7 +89,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/feature_engineering.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1426">
+            <state relative-caret-position="161">
               <caret line="7" column="78" selection-start-line="7" selection-start-column="78" selection-end-line="7" selection-end-column="78" />
             </state>
           </provider>
@@ -109,7 +110,7 @@
     </findStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -121,6 +122,7 @@
         <option value="$PROJECT_DIR$/model/xgboost.py" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/utils/feature_engineering.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -149,23 +151,17 @@
         <subPane>
           <expand>
             <path>
-              <item name="Google Competition Framework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Google Competition Framework" type="462c0819:PsiDirectoryNode" />
+              <item name="Google-Analytics-Customer-Revenue-Prediction-Competition" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Google-Analytics-Customer-Revenue-Prediction-Competition" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Google Competition Framework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Google Competition Framework" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="Google-Analytics-Customer-Revenue-Prediction-Competition" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
             <path>
-              <item name="Google Competition Framework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Google Competition Framework" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Google Competition Framework" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Google Competition Framework" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
+              <item name="Google-Analytics-Customer-Revenue-Prediction-Competition" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; Python 3.6 (Google Competition Framework) &gt;" type="70bed36:NamedLibraryElementNode" />
             </path>
           </expand>
           <select />
@@ -175,6 +171,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
   </component>
   <component name="RecentsManager">
@@ -239,9 +236,9 @@
     <frame x="1273" y="0" width="1294" height="1047" extended-state="0" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.25" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="0" weight="0.32995495" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="0" visible="true" weight="0.32995495" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="2" />
       <window_info anchor="bottom" id="Message" order="3" />
@@ -258,19 +255,9 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="38" column="80" selection-start-line="38" selection-start-column="80" selection-end-line="38" selection-end-column="80" />
-          <folding>
-            <element signature="e#0#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/xgboost.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
+        <state relative-caret-position="552">
           <caret line="25" selection-start-line="25" selection-end-line="25" />
           <folding>
             <element signature="e#0#76#0" expanded="true" />
@@ -285,17 +272,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/feature_engineering.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1426">
-          <caret line="7" column="78" selection-start-line="7" selection-start-column="78" selection-end-line="7" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/utils/data_wrangling.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="897">
           <caret line="39" column="32" selection-start-line="39" selection-start-column="31" selection-end-line="39" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/feature_engineering.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="7" column="78" selection-start-line="7" selection-start-column="78" selection-end-line="7" selection-end-column="78" />
         </state>
       </provider>
     </entry>
@@ -305,6 +292,23 @@
           <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="419">
+          <caret line="109" lean-forward="true" selection-start-line="109" selection-end-line="109" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="436">
+          <caret line="38" column="80" selection-start-line="38" selection-start-column="80" selection-end-line="38" selection-end-column="80" />
+          <folding>
+            <element signature="e#0#57#0" expanded="true" />
           </folding>
         </state>
       </provider>
