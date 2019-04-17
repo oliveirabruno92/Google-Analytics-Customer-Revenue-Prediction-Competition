@@ -9,7 +9,7 @@ def load_df(csv_path='data/raw/train_v2.csv', nrows=None):
 
     df = pd.read_csv(csv_path,
                      converters={column: json.loads for column in json_columns},
-                     dtype={'fullVisitorId': 'str'},  # Important!!
+                     dtype={'fullVisitorId': 'str'},
                      nrows=nrows)
 
     for column in json_columns:

@@ -28,6 +28,14 @@ def drop_cols(train, test):
     return train, test
 
 
+def drop_nulls(train, test):
+
+    if train.isnull().any().any() and test.isnull().any().any():
+        train = train.dropna(axis=0)
+        test = test.dropna(axis=0)
+    return train, test
+
+
 def convert_features(train, test):
 
     for col in ['visitNumber', 'totals_hits', 'totals_pageviews', 'totals_transactionRevenue']:
@@ -39,6 +47,7 @@ def convert_features(train, test):
 
 def data_wrangling(train, test):
 
+    print('Cleaning data..')
     train, test = fill_nulls(train, test)
     train, test = convert_dates(train, test)
     train, test = drop_cols(train, test)

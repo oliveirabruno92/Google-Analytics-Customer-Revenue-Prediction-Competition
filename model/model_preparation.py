@@ -1,18 +1,75 @@
-from sklearn.model_selection import train_test_split
-
-num_cols = ['visitNumber', 'totals.hits', 'totals.pageviews', 'month_unique_user_count', 'day_unique_user_count', 'mean_hits_per_day'
-           'sum_pageviews_per_network_domain', 'sum_hits_per_network_domain', 'count_hits_per_network_domain', 'sum_hits_per_region',
-           'sum_hits_per_day', 'count_pageviews_per_network_domain', 'mean_pageviews_per_network_domain', 'weekday_unique_user_count',
-           'sum_pageviews_per_region', 'count_pageviews_per_region', 'mean_pageviews_per_region', 'user_pageviews_count', 'user_hits_count',
-           'count_hits_per_region', 'mean_hits_per_region', 'user_pageviews_sum', 'user_hits_sum', 'user_pageviews_sum_to_mean',
-            'user_hits_sum_to_mean', 'user_pageviews_to_region', 'user_hits_to_region', 'mean_pageviews_per_network_domain',
-           'mean_hits_per_network_domain']
-
-no_use = ["visitNumber", "date", "fullVisitorId", "sessionId", "visitId", "visitStartTime", 'totals_transactionRevenue', 'trafficSource_referralPath']
+from sklearn.model_selection import train_test_split, KFold, cross_val_score
+from sklearn.preprocessing import LabelEncoder
+import numpy as np
+from time import time
 
 
-def cat_cols(data):
+class ModelPreparation:
 
-    return [col for col in data.columns if col not in num_cols and col not in no_use]
+    def __init__(self, num_cols, no_use, n_folds, target):
+        self.num_cols = num_cols
+        self.no_use = no_use
+        self.target = target
+        self.n_folds = n_folds
+
+    def cat_cols(self, train):
+
+        return [col for col in train.columns if col not in self.num_cols and col not in self.no_use]
+
+    def cols_to_use(self, data):
+
+        return [col for col in self.no_use if col in data.columns]
+
+    def encoder(self, train, test):
+
+        print('Enconding categorical features..')
+        cat = self.cat_cols(train)
+        for col in cat:
+            if col != 'trafficSource_campaignCode':
+                lbl = LabelEncoder()
+                lbl.fit(list(train[col].values.astype('str')) + list(test[col].values.astype('str')))
+                train[col] = lbl.transform(list(train[col].values.astype('str')))
+                test[col] = lbl.transform(list(test[col].values.astype('str')))
+
+        return train, test
+
+    def features_and_target(self, train):
+
+        train = train.sort_values(by='date')
+        x = train.drop(self.cols_to_use(train), axis=1)
+        y = train[self.target]
+
+        return x, y
+
+    def split_train_data(self, train):
+
+        x, y = self.features_and_target(train)
+        x_train, x_val, y_train, y_val = train_test_split(x, y, test_size=0.2, random_state=1)
+
+        return x_train, x_val, y_train, y_val
+
+    def test_data(self, test):
+
+        x_test = test.drop(self.cols_to_use(test), axis=1)
+
+        return x_test
+
+    def rmse_cv(self, estimator, train):
+
+        start = time()
+        x, y = self.features_and_target(train)
+        kf = KFold(self.n_folds, shuffle=True).get_n_splits(x.values)
+        score = np.sqrt(-cross_val_score(estimator, x.values, y.values.reshape(-1, 1),
+                                         scoring='neg_mean_squared_error', cv=kf))
+        print('Cross Validation execution time: {} seconds'.format(round(time() - start, 2)))
+        return score
+
+
+
+
+
+
+
+
 
 

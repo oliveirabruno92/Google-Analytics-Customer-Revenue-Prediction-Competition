@@ -84,7 +84,9 @@ def rate_features(data):
 
 def feature_engineering(data):
 
+    print('Making feature engineering..')
     data = features_to_log(data)
+    data = date_features(data)
     data = joined_features(data)
     data = grouped_features(data)
     data = rate_features(data)
