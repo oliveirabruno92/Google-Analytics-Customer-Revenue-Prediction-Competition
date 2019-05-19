@@ -4,6 +4,7 @@ import pandas as pd
 def fill_nulls(train, test):
 
     train['trafficSource_adwordsClickInfo.isVideoAd'].fillna(True, inplace=True)
+
     test['trafficSource_adwordsClickInfo.isVideoAd'].fillna(True, inplace=True)
     train['trafficSource_isTrueDirect'].fillna(False, inplace=True)
     test['trafficSource_isTrueDirect'].fillna(False, inplace=True)
@@ -30,9 +31,8 @@ def drop_cols(train, test):
 
 def drop_nulls(train, test):
 
-    if train.isnull().any().any() and test.isnull().any().any():
-        train = train.dropna(axis=0)
-        test = test.dropna(axis=0)
+    train = train.dropna(axis=1)
+    test = test.dropna(axis=1)
     return train, test
 
 
@@ -47,11 +47,13 @@ def convert_features(train, test):
 
 def data_wrangling(train, test):
 
-    print('Cleaning data..')
+    print('Performing data wrangling..')
     train, test = fill_nulls(train, test)
     train, test = convert_dates(train, test)
     train, test = drop_cols(train, test)
     train, test = convert_features(train, test)
+    train.dropna(axis=1, inplace=True)
+    test.dropna(axis=1, inplace=True)
 
     return train, test
 

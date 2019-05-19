@@ -14,6 +14,8 @@ class Configurations:
 
         config_params = {
             "flatten": configurations['app']['flatten'],
+            "test_size": configurations['app']['test_size'],
+            "seed": configurations['app']['seed'],
             "num_cols": configurations['model']['num_cols'],
             "no_use": configurations['model']['no_use'],
             "xgb_params": configurations['model']['xgb_params'],

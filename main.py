@@ -1,72 +1,83 @@
-from utils.feature_engineering import feature_engineering
+from modules.feature_engineering import feature_engineering
+from modules.data_wrangling import data_wrangling
 from utils.configurations import Configurations
-from utils.data_wrangling import data_wrangling, drop_nulls
+from utils.helper import timer, submission_file
 from utils.flatten_json import load_df
-from model.model import Model
 from model.model_preparation import ModelPreparation
+from model.model import Model
 import pandas as pd
 import numpy as np
-from time import time
-import sys
 
-start = time()
 
-print('='*40)
-print('INITIALIZING GOOGLE ANALYTICS COMPETITION')
-print('='*40)
+@timer
+def main():
 
-config = Configurations()
-config_params = config.get_params()
+    print('='*40)
+    print('INITIALIZING GOOGLE ANALYTICS COMPETITION')
+    print('='*40)
 
-flatten = config_params['flatten']
-num_cols = config_params['num_cols']
-no_use = config_params['no_use']
-xgb_params = config_params['xgb_params']
-n_folds = config_params['n_folds']
-target = config_params['target']
+    config = Configurations()
+    config_params = config.get_params()
 
-if not flatten:
+    flatten = config_params['flatten']
+    num_cols = config_params['num_cols']
+    no_use = config_params['no_use']
+    xgb_params = config_params['xgb_params']
+    n_folds = config_params['n_folds']
+    target = config_params['target']
+    test_size = config_params['test_size']
+    seed = config_params['seed']
 
-    print('Loading train data..')
-    train = load_df()
-    print('Loading test data..')
-    test = load_df('data/raw/test_v2.csv')
+    if not flatten:
 
-    train.to_csv('data/flatten_data/train_flattened.csv', index=False)
-    test.to_csv('data/flatten_data/test_flattened.csv', index=False)
+        print('Loading train data..')
+        train = load_df()
+        print('Loading test data..')
+        test = load_df('data/raw/test_v2.csv')
 
-else:
+        train.to_csv('data/flatten_data/train_flattened.csv', index=False)
+        test.to_csv('data/flatten_data/test_flattened.csv', index=False)
 
-    print('Reading data..')
-    train = pd.read_csv('data/flatten_data/train_flattened.csv', low_memory=False)
-    test = pd.read_csv('data/flatten_data/test_flattened.csv', dtype={'fullVisitorId': np.str}, low_memory=False)
+    else:
 
-print('Train dimensions before feature engineering: {} rows | {} features'.format(train.shape[0], train.shape[1]))
-print('Test dimensions before feature engineering: {} rows | {} features'.format(test.shape[0], test.shape[1]))
+        print('Reading data..')
+        train = pd.read_csv('data/flatten_data/train_flattened.csv', low_memory=False)
+        test = pd.read_csv('data/flatten_data/test_flattened.csv', dtype={'fullVisitorId': np.str}, low_memory=False)
 
-train, test = data_wrangling(train, test)
-train, test = feature_engineering(train), feature_engineering(test)
+    model_preparation = ModelPreparation(num_cols, no_use, n_folds, target, test_size, seed)
 
-model_preparation = ModelPreparation(num_cols, no_use, n_folds, target)
-train, test = model_preparation.encoder(train, test)
+    print('Train dimensions before feature engineering: {} rows | {} features'.format(train.shape[0], train.shape[1]))
+    print('Test dimensions before feature engineering: {} rows | {} features'.format(test.shape[0], test.shape[1]))
 
-print(train.isnull().any().any())
-print(test.isnull().any().any())
+    train, test = data_wrangling(train, test)
+    train, test = feature_engineering(train, test)
+    train, test = model_preparation.encoder(train, test)
 
-train, test = drop_nulls(train, test)
+    x_test = model_preparation.test_data(test)
 
-print(train.isnull().any().any())
-print(test.isnull().any().any())
-sys.exit(0)
+    print('Train dimensions after feature engineering: {} rows | {} features'.format(train.shape[0], train.shape[1]))
+    print('Test dimensions after feature engineering: {} rows | {} features'.format(test.shape[0], test.shape[1]))
 
-print('Train dimensions after feature engineering: {} rows | {} features'.format(train.shape[0], train.shape[1]))
-print('Test dimensions after feature engineering: {} rows | {} features'.format(test.shape[0], test.shape[1]))
+    print('='*40)
 
-xgb = Model(xgb_params)
-score = model_preparation.rmse_cv(xgb, train)
-print("RMSE: {} (+/- {})".format(score.mean(), score.std()))
+    x, y = model_preparation.features_and_target(train)
 
-print('Application execution time: {} seconds'.format(round(time() - start, 2)))
+    xgb = Model(xgb_params)
+    cv_results = xgb.cv_xgb(x, y, n_folds=n_folds)
+
+    print(cv_results)
+
+    print('='*40)
+
+    xgb.fit_xgb(x, y)
+    predictions = xgb.predict(x_test)
+
+    sub_csv = submission_file(test, predictions)
+
+
+if __name__ == '__main__':
+
+    main()
 
 
 

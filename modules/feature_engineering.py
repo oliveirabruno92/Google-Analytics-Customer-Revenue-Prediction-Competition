@@ -1,4 +1,5 @@
 import numpy as np
+from sklearn.preprocessing import LabelEncoder
 
 
 def features_to_log(data):
@@ -17,11 +18,6 @@ def date_features(data):
     data['weekday'] = data['date'].dt.weekday
     data['weekofyear'] = data['date'].dt.weekofyear
 
-    data['month_unique_user_count'] = data.groupby('month')['fullVisitorId'].transform('nunique')
-    data['day_unique_user_count'] = data.groupby('day')['fullVisitorId'].transform('nunique')
-    data['weekday_unique_user_count'] = data.groupby('weekday')['fullVisitorId'].transform('nunique')
-    data['weekofyear_unique_user_count'] = data.groupby('weekofyear')['fullVisitorId'].transform('nunique')
-
     return data
 
 
@@ -35,6 +31,10 @@ def joined_features(data):
 
 def grouped_features(data):
 
+    data['month_unique_user_count'] = data.groupby('month')['fullVisitorId'].transform('nunique')
+    data['day_unique_user_count'] = data.groupby('day')['fullVisitorId'].transform('nunique')
+    data['weekday_unique_user_count'] = data.groupby('weekday')['fullVisitorId'].transform('nunique')
+    data['weekofyear_unique_user_count'] = data.groupby('weekofyear')['fullVisitorId'].transform('nunique')
     data['sum_pageviews_per_network_domain'] = data.groupby('geoNetwork_networkDomain')['totals_pageviews'].transform(
         'sum')
     data['count_pageviews_per_network_domain'] = data.groupby('geoNetwork_networkDomain')[
@@ -68,29 +68,29 @@ def grouped_features(data):
     data['user_hits_sum'] = data.groupby('fullVisitorId')['totals_hits'].transform('sum')
     data['user_pageviews_count'] = data.groupby('fullVisitorId')['totals_pageviews'].transform('count')
     data['user_hits_count'] = data.groupby('fullVisitorId')['totals_hits'].transform('count')
-    data['user_pageviews_sum_to_mean'] = data['user_pageviews_sum'] / data['user_pageviews_sum'].mean()
-    data['user_hits_sum_to_mean'] = data['user_hits_sum'] / data['user_hits_sum'].mean()
 
     return data
 
 
 def rate_features(data):
 
+    data['user_pageviews_sum_to_mean'] = data['user_pageviews_sum'] / data['user_pageviews_sum'].mean()
+    data['user_hits_sum_to_mean'] = data['user_hits_sum'] / data['user_hits_sum'].mean()
     data['user_pageviews_to_region'] = data['user_pageviews_sum'] / data['mean_pageviews_per_region']
     data['user_hits_to_region'] = data['user_hits_sum'] / data['mean_hits_per_region']
 
     return data
 
 
-def feature_engineering(data):
+def feature_engineering(train, test):
 
     print('Making feature engineering..')
-    data = features_to_log(data)
-    data = date_features(data)
-    data = joined_features(data)
-    data = grouped_features(data)
-    data = rate_features(data)
+    train, test = features_to_log(train), features_to_log(test)
+    train, test = date_features(train), date_features(test)
+    train, test = joined_features(train), joined_features(test)
+    train, test = grouped_features(train), grouped_features(test)
+    train, test = rate_features(train), rate_features(test)
 
-    return data
+    return train, test
 
 

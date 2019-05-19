@@ -6,11 +6,13 @@ from time import time
 
 class ModelPreparation:
 
-    def __init__(self, num_cols, no_use, n_folds, target):
+    def __init__(self, num_cols, no_use, n_folds, target, test_size, seed):
         self.num_cols = num_cols
         self.no_use = no_use
         self.target = target
         self.n_folds = n_folds
+        self.test_size = test_size
+        self.seed = seed
 
     def cat_cols(self, train):
 
@@ -19,19 +21,6 @@ class ModelPreparation:
     def cols_to_use(self, data):
 
         return [col for col in self.no_use if col in data.columns]
-
-    def encoder(self, train, test):
-
-        print('Enconding categorical features..')
-        cat = self.cat_cols(train)
-        for col in cat:
-            if col != 'trafficSource_campaignCode':
-                lbl = LabelEncoder()
-                lbl.fit(list(train[col].values.astype('str')) + list(test[col].values.astype('str')))
-                train[col] = lbl.transform(list(train[col].values.astype('str')))
-                test[col] = lbl.transform(list(test[col].values.astype('str')))
-
-        return train, test
 
     def features_and_target(self, train):
 
@@ -44,7 +33,7 @@ class ModelPreparation:
     def split_train_data(self, train):
 
         x, y = self.features_and_target(train)
-        x_train, x_val, y_train, y_val = train_test_split(x, y, test_size=0.2, random_state=1)
+        x_train, x_val, y_train, y_val = train_test_split(x, y, test_size=self.test_size, random_state=self.seed)
 
         return x_train, x_val, y_train, y_val
 
@@ -53,6 +42,19 @@ class ModelPreparation:
         x_test = test.drop(self.cols_to_use(test), axis=1)
 
         return x_test
+
+    def encoder(self, train, test):
+
+        print('Enconding categorical features..')
+        cat = self.cat_cols(train)
+        for col in cat:
+            if col != 'trafficSource_campaignCode':
+                lbl = LabelEncoder()
+                lbl.fit(list(train[col].values.astype('str')) + list(test[col].values.astype('str')))
+                train[col] = lbl.transform(list(train[col].values.astype('str')))
+                test[col] = lbl.transform(list(test[col].values.astype('str')))
+
+            return train, test
 
     def rmse_cv(self, estimator, train):
 
