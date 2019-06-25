@@ -7,6 +7,12 @@ from model.model_preparation import ModelPreparation
 from model.model import Model
 import pandas as pd
 import numpy as np
+import sys
+
+from sklearn.preprocessing import LabelEncoder
+
+pd.options.display.max_columns = 999
+pd.options.display.max_rows = 999
 
 
 @timer
@@ -52,6 +58,9 @@ def main():
     train, test = data_wrangling(train, test)
     train, test = feature_engineering(train, test)
     train, test = model_preparation.encoder(train, test)
+    le = LabelEncoder()
+    train[target] = le.fit_transform(train[target])
+    test[target] = le.fit_transform(test[target])
 
     x_test = model_preparation.test_data(test)
 
@@ -66,6 +75,8 @@ def main():
     cv_results = xgb.cv_xgb(x, y, n_folds=n_folds)
 
     print(cv_results)
+
+    sys.exit(0)
 
     print('='*40)
 

@@ -52,8 +52,9 @@ def data_wrangling(train, test):
     train, test = convert_dates(train, test)
     train, test = drop_cols(train, test)
     train, test = convert_features(train, test)
-    train.dropna(axis=1, inplace=True)
-    test.dropna(axis=1, inplace=True)
+    # train, test = drop_nulls(train, test)
+    # train.dropna(axis=1, inplace=True)
+    # test.dropna(axis=1, inplace=True)
 
     return train, test
 

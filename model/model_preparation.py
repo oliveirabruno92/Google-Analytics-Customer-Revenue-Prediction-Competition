@@ -14,9 +14,9 @@ class ModelPreparation:
         self.test_size = test_size
         self.seed = seed
 
-    def cat_cols(self, train):
+    def cat_cols(self, data):
 
-        return [col for col in train.columns if col not in self.num_cols and col not in self.no_use]
+        return [col for col in data.columns if col not in self.num_cols and col not in self.no_use]
 
     def cols_to_use(self, data):
 
@@ -50,9 +50,9 @@ class ModelPreparation:
         for col in cat:
             if col != 'trafficSource_campaignCode':
                 lbl = LabelEncoder()
-                lbl.fit(list(train[col].values.astype('str')) + list(test[col].values.astype('str')))
-                train[col] = lbl.transform(list(train[col].values.astype('str')))
-                test[col] = lbl.transform(list(test[col].values.astype('str')))
+                lbl.fit(list(train[col].values.astype(str)) + list(test[col].values.astype(str)))
+                train[col] = lbl.transform(list(train[col].values.astype(str)))
+                test[col] = lbl.transform(list(test[col].values.astype(str)))
 
             return train, test
 
